@@ -1,5 +1,6 @@
 <?php
 // api/place_order.php - Ultra Fast 1-Click Checkout Handler for YDS Threads
+// Connected to 24/7 Railway Cloud WhatsApp Gateway + QuickChat CRM
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Content-Type');
@@ -84,22 +85,59 @@ try {
     }
 } catch (Exception $e) {}
 
-// Trigger WhatsApp notification via local server on 3000
-try {
-    $waMsg = "✨ *YDS THREADS — ORDER CONFIRMED* ✨\n\nDear {$customerName},\nThank you for shopping with YDS Threads! Your order has been placed successfully.\n\n📋 *Order ID:* #{$orderCode}\n👗 *Item:* {$productName}\n🏷️ *Details:* {$variant}\n💵 *Total to pay (COD):* Rs. " . number_format($total, 2) . " (Includes Rs. 350 Islandwide Delivery)\n🚚 *Courier:* Koombiyo Delivery (Tracking: {$tracking})\n\nOur team is packing your luxury package. Expected delivery within 2-3 working days. Thank you! 👑";
+// Normalize phone for WhatsApp API
+$cleanPhone = preg_replace('/[^\d]/', '', $phone1);
+if (strpos($cleanPhone, '0') === 0) {
+    $cleanPhone = '94' . substr($cleanPhone, 1);
+} elseif (strlen($cleanPhone) === 9 && strpos($cleanPhone, '7') === 0) {
+    $cleanPhone = '94' . $cleanPhone;
+}
 
-    $ch = curl_init('http://127.0.0.1:3000/send-message');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'phone' => $phone1,
-        'message' => $waMsg
-    ]));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-    curl_exec($ch);
-    curl_close($ch);
-} catch (Exception $e) {}
+// Trigger WhatsApp notification via Railway Cloud API (with localhost fallback)
+$waDispatched = false;
+$waMsg = "✨ *YDS THREADS — ORDER CONFIRMED* ✨\n\n"
+       . "Dear *{$customerName}*,\n"
+       . "Thank you for shopping with YDS Threads! Your order has been placed successfully.\n\n"
+       . "📋 *Order ID:* #{$orderCode}\n"
+       . "👗 *Item:* {$productName}\n"
+       . "🏷️ *Details:* {$variant}\n"
+       . "💵 *Total to pay (COD):* Rs. " . number_format($total, 2) . " (Includes Rs. 350 Islandwide Delivery)\n"
+       . "🚚 *Courier:* Koombiyo Delivery (Tracking: `{$tracking}`)\n"
+       . "📍 *Delivery To:* {$address}, {$city}\n\n"
+       . "Our team is packing your luxury package. Expected delivery within 2-3 working days. Thank you! 👑";
+
+$endpoints = [
+    'https://web-production-b6781.up.railway.app/send-message',
+    'http://127.0.0.1:3000/send-message'
+];
+
+foreach ($endpoints as $ep) {
+    try {
+        $ch = curl_init($ep);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'phone' => $cleanPhone,
+            'message' => $waMsg
+        ]));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 6);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 12);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        $res = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode === 200 && $res) {
+            $dec = json_decode($res, true);
+            if ($dec && ($dec['success'] ?? false)) {
+                $waDispatched = true;
+                break;
+            }
+        }
+    } catch (Exception $e) {}
+}
 
 echo json_encode([
     'success' => true,
@@ -110,9 +148,11 @@ echo json_encode([
         'customer_name' => $customerName,
         'phone1' => $phone1,
         'address' => $address,
+        'city' => $city,
         'product' => $productName,
         'variant' => $variant,
         'total' => $total,
         'tracking' => $tracking
-    ]
+    ],
+    'whatsapp_dispatched' => $waDispatched
 ]);
