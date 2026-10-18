@@ -2,6 +2,38 @@
 // admin/index.php - YDS THREADS Merchant Dashboard & Courier Logistics
 require_once __DIR__ . '/../config.php';
 
+// Handle Add Product
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_product') {
+    $name = trim($_POST['name'] ?? '');
+    $category = trim($_POST['category'] ?? 'Fashion');
+    $subcategory = trim($_POST['subcategory'] ?? '');
+    $price = (float)($_POST['price'] ?? 0);
+    $origPrice = !empty($_POST['original_price']) ? (float)$_POST['original_price'] : ($price * 1.25);
+    $sizes = trim($_POST['sizes'] ?? 'S, M, L, XL');
+    $colors = trim($_POST['colors'] ?? '');
+    $imageUrl = trim($_POST['image_url'] ?? 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600');
+    $badge = trim($_POST['badge'] ?? 'New Arrival');
+    $desc = trim($_POST['description'] ?? '');
+
+    if ($name && $price > 0) {
+        $stmt = $pdo->prepare("INSERT INTO products (name, category, subcategory, price, original_price, sizes, colors, description, image_url, badge, in_stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
+        $stmt->execute([$name, $category, $subcategory, $price, $origPrice, $sizes, $colors, $desc, $imageUrl, $badge]);
+        header("Location: index.php?msg=product_added");
+        exit;
+    }
+}
+
+// Handle Delete Product
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_product') {
+    $delId = (int)($_POST['product_id'] ?? 0);
+    if ($delId > 0) {
+        $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
+        $stmt->execute([$delId]);
+        header("Location: index.php?msg=product_deleted");
+        exit;
+    }
+}
+
 // Fetch orders
 $orders = $pdo->query("SELECT * FROM orders ORDER BY id DESC")->fetchAll();
 
@@ -155,7 +187,7 @@ foreach ($orders as $o) {
 
         <!-- Section: Product Catalog Inventory -->
         <section class="bg-[#111726] rounded-3xl border border-slate-800 p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
                     <h2 class="text-base font-black text-white flex items-center gap-2">
                         <i class="fa-solid fa-shirt text-amber-400"></i>
@@ -163,22 +195,117 @@ foreach ($orders as $o) {
                     </h2>
                     <p class="text-xs text-slate-400 mt-0.5">Fashion, Footwear, and Perfumes available on the live storefront.</p>
                 </div>
+                <button onclick="document.getElementById('add-product-modal').classList.remove('hidden')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-plus"></i> Add New Product
+                </button>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <?php foreach ($products as $p): ?>
-                    <div class="bg-slate-900 rounded-2xl border border-slate-800 p-3.5 flex gap-3 items-center">
-                        <img src="<?= htmlspecialchars($p['image_url']) ?>" class="w-16 h-16 rounded-xl object-cover bg-slate-800 border border-slate-700 flex-shrink-0">
+                    <div class="bg-slate-900 rounded-2xl border border-slate-800 p-3.5 flex gap-3 items-center relative group">
+                        <img src="<?= htmlspecialchars($p['image_url']) ?>" class="w-16 h-16 rounded-xl object-cover bg-slate-800 border border-slate-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600'">
                         <div class="min-w-0 flex-1 text-xs">
-                            <span class="text-[9px] uppercase font-bold text-amber-400 bg-amber-950/60 px-1.5 py-0.5 rounded"><?= htmlspecialchars($p['category']) ?></span>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] uppercase font-bold text-amber-400 bg-amber-950/60 px-1.5 py-0.5 rounded"><?= htmlspecialchars($p['category']) ?></span>
+                                <form method="POST" onsubmit="return confirm('Delete this product?');" class="inline">
+                                    <input type="hidden" name="action" value="delete_product">
+                                    <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
+                                    <button type="submit" class="text-slate-500 hover:text-red-400 text-[11px] p-1 transition" title="Delete Product"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </div>
                             <h4 class="font-bold text-white truncate mt-1"><?= htmlspecialchars($p['name']) ?></h4>
                             <div class="text-amber-300 font-black mt-0.5">Rs. <?= number_format($p['price'], 2) ?></div>
-                            <div class="text-[10px] text-slate-500 truncate"><?= htmlspecialchars($p['sizes']) ?></div>
+                            <div class="text-[10px] text-slate-500 truncate"><?= htmlspecialchars($p['sizes'] ?: 'Free Size') ?></div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </section>
+
+        <!-- Modal: Add New Product -->
+        <div id="add-product-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div class="bg-[#111726] border border-slate-800 rounded-3xl max-w-xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                    <h3 class="text-base font-black text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle-plus text-amber-400"></i> Add New Product to Store
+                    </h3>
+                    <button type="button" onclick="document.getElementById('add-product-modal').classList.add('hidden')" class="text-slate-400 hover:text-white text-lg cursor-pointer">&times;</button>
+                </div>
+
+                <form method="POST" class="space-y-4 text-xs">
+                    <input type="hidden" name="action" value="add_product">
+
+                    <div>
+                        <label class="block font-bold text-slate-300 mb-1">Product Title *</label>
+                        <input type="text" name="name" required placeholder="e.g. Italian Breathable Linen Shirt" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">Category *</label>
+                            <select name="category" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                                <option value="Fashion">👗 Fashion & Abayas</option>
+                                <option value="Shoes">👟 Shoes & Sneakers</option>
+                                <option value="Perfumes">✨ Perfumes & Oud</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">Subcategory</label>
+                            <input type="text" name="subcategory" placeholder="e.g. Shirts, Abaya, Sneakers" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">Selling Price (Rs.) *</label>
+                            <input type="number" step="0.01" name="price" required placeholder="3800.00" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">Original Price (Strikeout Rs.)</label>
+                            <input type="number" step="0.01" name="original_price" placeholder="4900.00" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">Available Sizes</label>
+                            <input type="text" name="sizes" value="S, M, L, XL, XXL" placeholder="S, M, L or 40, 41, 42" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">Badge</label>
+                            <select name="badge" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                                <option value="New Arrival">✨ New Arrival</option>
+                                <option value="Bestseller">🔥 Bestseller</option>
+                                <option value="Trending">⚡ Trending</option>
+                                <option value="Hot Deal">🏷️ Hot Deal</option>
+                                <option value="Luxury Collection">💎 Luxury Collection</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-300 mb-1">Colors (Comma separated)</label>
+                        <input type="text" name="colors" placeholder="Black, Navy Blue, Maroon, Emerald" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-300 mb-1">Image URL *</label>
+                        <input type="url" name="image_url" required placeholder="https://images.unsplash.com/... or assets/p1.jpg" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        <span class="text-[10px] text-slate-500">Paste any image link or upload to assets/ folder.</span>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-300 mb-1">Description</label>
+                        <textarea name="description" rows="3" placeholder="Fabric details, fit, and style description..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none"></textarea>
+                    </div>
+
+                    <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+                        <button type="button" onclick="document.getElementById('add-product-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition cursor-pointer">Cancel</button>
+                        <button type="submit" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg shadow-amber-500/20 transition cursor-pointer">Save & List Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </main>
 
