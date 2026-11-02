@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>YDS THREADS — Luxury Fashion, Shoes & Fragrances</title>
+    <title>JDS THREADS — Multi-Store Online Shopping • 21 Categories, Mega Deals & COD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,19 +33,18 @@
             border-color: rgba(212, 175, 55, 0.35);
         }
         .gold-border:hover {
-            border-color: rgba(212, 175, 55, 0.8);
+            border-color: rgba(212, 175, 55, 0.85);
         }
         .niche-pill.active {
             background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
             color: #0b0f19;
             font-weight: 800;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
         }
         /* Hide scrollbars for slick mobile touch carousels */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Mobile safe bottom padding */
         .safe-bottom-pad {
             padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
         }
@@ -53,6 +52,14 @@
         ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); }
+        }
+        .pulse-flash {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 antialiased selection:bg-[#D4AF37] selection:text-black min-h-screen flex flex-col pb-20 md:pb-0">
@@ -60,35 +67,39 @@
     <!-- Top Announcement Strip -->
     <div class="bg-gradient-to-r from-[#171e2e] via-[#241d10] to-[#171e2e] text-center py-1.5 sm:py-2 px-3 text-[11px] sm:text-xs font-semibold text-amber-200 border-b border-amber-900/30 flex items-center justify-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="truncate">✨ Islandwide Cash on Delivery (COD) via Koombiyo Express &bull; 2-3 Days Fast Dispatch</span>
+        <span class="truncate">✨ <strong>JDS THREADS</strong> • Islandwide Cash on Delivery (COD) via Koombiyo Express &bull; 2-3 Days Fast Dispatch</span>
     </div>
 
     <!-- Luxury Sticky Navbar -->
     <header class="sticky top-0 z-40 bg-[#0b0f19]/95 backdrop-blur-xl border-b border-slate-800/80 shadow-md">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20">
+            <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
                 
-                <!-- Brand Logo (YDS THREADS) -->
-                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group">
-                    <img src="assets/logo.png" alt="YDS Threads Logo" class="h-10 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-[0_0_15px_rgba(212,175,55,0.25)]">
+                <!-- Brand Logo (JDS THREADS) -->
+                <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                    <img src="assets/logo.png" alt="JDS Threads Logo" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-[0_0_15px_rgba(212,175,55,0.25)]">
+                    <div class="flex flex-col">
+                        <span class="font-cinzel text-base sm:text-xl font-black text-white tracking-wider flex items-center gap-1.5">
+                            JDS <span class="gold-gradient">THREADS</span>
+                        </span>
+                        <span class="text-[9px] uppercase tracking-widest text-amber-400/80 hidden xs:inline font-bold">Multi-Store • 21 Categories</span>
+                    </div>
                 </a>
 
-                <!-- Desktop Category Nav -->
-                <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-slate-300">
-                    <button onclick="filterCategory('all')" class="hover:text-amber-300 transition">All Items</button>
-                    <button onclick="filterCategory('Fashion')" class="hover:text-amber-300 transition">👗 Boutique & Abayas</button>
-                    <button onclick="filterCategory('Shoes')" class="hover:text-amber-300 transition">👟 Footwear & Sneakers</button>
-                    <button onclick="filterCategory('Perfumes')" class="hover:text-amber-300 transition">✨ Royal Oud & Fragrances</button>
-                </nav>
+                <!-- Desktop Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+                    <input type="text" id="desktopSearchInput" oninput="handleSearch(this.value)" placeholder="Search electronics, snacks, baby care, fashion, deals..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-full pl-10 pr-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-2.5 text-slate-400 text-xs"></i>
+                </div>
 
                 <!-- Actions: WhatsApp, Add Item & Cart -->
-                <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                     <button onclick="openClientAddModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full text-xs font-bold transition cursor-pointer" title="List New Product">
                         <i class="fa-solid fa-plus text-xs"></i>
                         <span class="hidden sm:inline">Add Item</span>
                     </button>
 
-                    <a href="https://wa.me/94766968241?text=Hello%20YDS%20Threads!%20I%20have%20an%20inquiry%20about%20your%20collection." target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 rounded-full text-xs font-bold transition">
+                    <a href="https://wa.me/94766968241?text=Hello%20JDS%20Threads!%20I%20have%20an%20inquiry%20about%20your%20products." target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 rounded-full text-xs font-bold transition">
                         <i class="fa-brands fa-whatsapp text-sm text-emerald-400"></i>
                         <span class="hidden xs:inline sm:inline">WhatsApp Help</span>
                     </a>
@@ -99,24 +110,30 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="md:hidden pb-2.5 pt-1 relative">
+                <input type="text" id="mobileSearchInput" oninput="handleSearch(this.value)" placeholder="Search products, brands & daily essentials..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-full pl-9 pr-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Banner Stage (Touch-optimized) -->
-    <section class="relative pt-6 pb-8 sm:pt-12 sm:pb-14 px-4 overflow-hidden border-b border-slate-800/80 bg-gradient-to-b from-[#111625] via-[#0b0f19] to-[#0b0f19]">
+    <!-- Hero Banner Stage -->
+    <section class="relative pt-6 pb-6 sm:pt-10 sm:pb-10 px-4 overflow-hidden border-b border-slate-800/80 bg-gradient-to-b from-[#111625] via-[#0b0f19] to-[#0b0f19]">
         <div class="max-w-5xl mx-auto text-center relative z-10">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest bg-amber-950/60 text-amber-300 border border-amber-600/40 mb-3 sm:mb-4">
-                <i class="fa-solid fa-crown text-[9px]"></i> SIGNATURE LUXURY COLLECTION 2026
+                <i class="fa-solid fa-store text-[9px]"></i> MEGA MULTI-STORE PLATFORM 2026
             </span>
-            <h1 class="font-cinzel text-2xl sm:text-4xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-                Designed for <span class="gold-gradient">Elegance</span> &amp; Prestige
+            <h1 class="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+                Everything You Love, <span class="gold-gradient">Delivered to Your Doorstep</span>
             </h1>
-            <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto mt-2.5 sm:mt-4 leading-relaxed font-normal">
-                Discover bespoke Dubai-style Abayas, designer Chudithars, handcrafted Italian leather shoes, high-street sneakers, and aged Cambodian Oud perfumes.
+            <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto mt-2 sm:mt-3 leading-relaxed font-normal">
+                Explore 21 categories ranging from Daily Deals, Electronics, Fresh Produce, Baby Care, Coffee &amp; Tea, to Luxury Fashion, Handcrafted Shoes &amp; Fragrances.
             </p>
 
             <!-- Touch-swipeable Feature Badges -->
-            <div class="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar mt-5 sm:mt-8 pb-1 text-[11px] sm:text-xs font-semibold text-slate-300">
+            <div class="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar mt-4 sm:mt-6 pb-1 text-[11px] sm:text-xs font-semibold text-slate-300">
                 <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap shadow-sm">
                     <i class="fa-solid fa-hand-holding-dollar text-amber-400 text-xs"></i>
                     <span>Cash on Delivery (COD)</span>
@@ -127,34 +144,116 @@
                 </div>
                 <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap shadow-sm">
                     <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
-                    <span>1-Click WhatsApp Ordering</span>
+                    <span>WhatsApp Order Hotline</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap shadow-sm">
+                    <i class="fa-solid fa-layer-group text-amber-400 text-xs"></i>
+                    <span>21 Main Categories</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Niche Filter Tabs (Horizontal Swipe on Mobile) -->
+    <!-- SECTION 1: 21 MAIN CATEGORIES SHOWCASE -->
+    <section class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 pb-4">
+        <div class="flex items-center justify-between mb-3.5">
+            <div>
+                <h2 class="text-base sm:text-xl font-extrabold text-white flex items-center gap-2 font-cinzel">
+                    <i class="fa-solid fa-border-all text-amber-400"></i> Explore 21 Main Categories
+                </h2>
+                <p class="text-[11px] sm:text-xs text-slate-400">Tap any category to filter items instantly</p>
+            </div>
+            <button onclick="filterCategory('all')" class="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1">
+                View All <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+        </div>
+
+        <!-- 21 Categories Grid / Touch Carousel -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2.5 sm:gap-3.5" id="categoriesShowcaseGrid">
+            <!-- Injected via JavaScript from CATEGORIES array -->
+        </div>
+    </section>
+
+    <!-- SECTION 2: FLASH SALE SHOWCASE (Limited Time Urgent Deals) -->
+    <section class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
+        <div class="bg-gradient-to-r from-red-950/70 via-slate-900 to-amber-950/70 border border-red-500/40 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl relative overflow-hidden pulse-flash">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4 pb-3 border-b border-red-500/20">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-red-600/30 border border-red-500/50 flex items-center justify-center text-red-400 text-2xl shrink-0">
+                        <i class="fa-solid fa-bolt animate-bounce"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg sm:text-2xl font-black text-white font-cinzel tracking-wide">
+                                🔥 FLASH SALE DEALS
+                            </h2>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-red-600 text-white animate-pulse">Up to 50% OFF</span>
+                        </div>
+                        <p class="text-xs text-slate-300">Limited quantities remaining at lowest factory prices. Don't miss out!</p>
+                    </div>
+                </div>
+
+                <!-- Flash Sale Live Countdown Timer -->
+                <div class="flex items-center gap-2 self-start md:self-auto bg-black/60 border border-amber-500/30 px-3.5 py-2 rounded-2xl">
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">Ends In:</span>
+                    <div class="flex items-center gap-1 font-mono font-black text-xs sm:text-sm">
+                        <div class="bg-slate-900 border border-slate-800 text-amber-300 px-2 py-1 rounded-lg" id="timerHours">11</div>
+                        <span class="text-amber-400">:</span>
+                        <div class="bg-slate-900 border border-slate-800 text-amber-300 px-2 py-1 rounded-lg" id="timerMins">48</div>
+                        <span class="text-amber-400">:</span>
+                        <div class="bg-slate-900 border border-slate-800 text-amber-300 px-2 py-1 rounded-lg" id="timerSecs">30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flash Sale Products Horizontal Scroll -->
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="flashSaleProductsGrid">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: CURATED DISCOVERY TABS & FILTER PILLS -->
     <section class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-6">
-        <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar pb-3">
-            <button onclick="filterCategory('all')" id="pill-all" class="niche-pill active px-3.5 sm:px-6 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
-                🌟 All Collections
+        <!-- Showcase Filter Pills -->
+        <div class="flex items-center justify-start gap-2 overflow-x-auto no-scrollbar pb-2">
+            <button onclick="filterSection('all')" id="sec-pill-all" class="niche-pill active px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                🌟 All Products
             </button>
-            <button onclick="filterCategory('Fashion')" id="pill-Fashion" class="niche-pill px-3.5 sm:px-6 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
-                👗 Fashion &amp; Abayas
+            <button onclick="filterSection('flash')" id="sec-pill-flash" class="niche-pill px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                🔥 Flash Sale
             </button>
-            <button onclick="filterCategory('Shoes')" id="pill-Shoes" class="niche-pill px-3.5 sm:px-6 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
-                👟 Shoes &amp; Sneakers
+            <button onclick="filterSection('new')" id="sec-pill-new" class="niche-pill px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                💎 New Arrivals
             </button>
-            <button onclick="filterCategory('Perfumes')" id="pill-Perfumes" class="niche-pill px-3.5 sm:px-6 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
-                ✨ Oud &amp; Cosmetics
+            <button onclick="filterSection('bestsellers')" id="sec-pill-bestsellers" class="niche-pill px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                🏆 Best Sellers
             </button>
+            <button onclick="filterSection('trending')" id="sec-pill-trending" class="niche-pill px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                ⚡ Trending
+            </button>
+            <button onclick="filterSection('featured')" id="sec-pill-featured" class="niche-pill px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                ✨ Featured
+            </button>
+            <button onclick="filterSection('popular')" id="sec-pill-popular" class="niche-pill px-3.5 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition">
+                ❤️ Most Popular
+            </button>
+        </div>
+
+        <!-- 21 Categories Quick Dropdown/Chips for fast jumping -->
+        <div class="flex items-center justify-start gap-1.5 overflow-x-auto no-scrollbar pt-2 pb-2 text-[11px] text-slate-400">
+            <span class="font-bold text-amber-400/90 whitespace-nowrap mr-1"><i class="fa-solid fa-filter"></i> Category:</span>
+            <div id="categoryChipsContainer" class="flex gap-1.5">
+                <!-- Injected via JavaScript -->
+            </div>
         </div>
     </section>
 
     <!-- Catalog Control Bar (Item count & View mode switch) -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-2 pb-1 flex items-center justify-between text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-3 pb-1 flex items-center justify-between text-xs text-slate-400">
         <div>
-            <span id="productCountLabel" class="font-bold text-slate-300">10 Luxury Products</span>
+            <span id="productCountLabel" class="font-bold text-slate-200">Loading Products...</span>
+            <span id="activeFilterBadge" class="ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 hidden"></span>
         </div>
         <div class="flex items-center gap-1 bg-slate-900/90 border border-slate-800 rounded-xl p-0.5">
             <button id="viewGridBtn" onclick="setViewMode('grid')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition text-amber-300 bg-amber-500/20" title="2-Column Grid View">
@@ -173,7 +272,7 @@
         </div>
     </main>
 
-    <!-- Slide-Over Cart Drawer (Mobile Touch Friendly) -->
+    <!-- Slide-Over Cart Drawer -->
     <div id="cartDrawer" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden justify-end transition-opacity">
         <div class="bg-[#111726] w-full max-w-md h-full shadow-2xl border-l border-slate-800 flex flex-col justify-between">
             <!-- Cart Header -->
@@ -204,14 +303,14 @@
                     <span>Total (COD):</span>
                     <span id="cartTotalText" class="text-amber-300 font-black text-base">Rs. 350.00</span>
                 </div>
-                <button onclick="checkoutCart()" class="w-full py-3.5 gold-btn rounded-xl text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2">
+                <button onclick="checkoutCart()" class="w-full py-3.5 gold-btn rounded-xl text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-shield-halved"></i> Proceed to Fast Checkout
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Fast 1-Click Checkout Modal (Mobile Bottom-Sheet & Centered Adaptive) -->
+    <!-- Fast 1-Click Checkout Modal -->
     <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-[#111726] border sm:border gold-border rounded-t-3xl sm:rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl text-slate-200 max-h-[92vh] flex flex-col">
             <!-- Modal Header -->
@@ -220,7 +319,7 @@
                     <span class="text-amber-400 text-lg">⚡</span>
                     <h3 class="font-black text-white text-base">Fast 1-Click Checkout (COD)</h3>
                 </div>
-                <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center font-bold text-lg">&times;</button>
+                <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center font-bold text-lg cursor-pointer">&times;</button>
             </div>
 
             <!-- Modal Scrollable Content -->
@@ -237,34 +336,34 @@
                 <form id="fastCheckoutForm" onsubmit="submitFastOrder(event)" class="space-y-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-300 mb-1">Your Full Name *</label>
-                        <input type="text" id="co_name" required placeholder="e.g. Kasun Perera / Fathima" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+                        <input type="text" id="co_name" required placeholder="e.g. Kasun Perera / Fathima / Richard" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 outline-none">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">Primary Mobile (WhatsApp) *</label>
-                            <input type="tel" id="co_phone1" required placeholder="077xxxxxxx" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 font-mono">
+                            <input type="tel" id="co_phone1" required placeholder="077xxxxxxx" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 font-mono outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">Backup Phone (Optional)</label>
-                            <input type="tel" id="co_phone2" placeholder="071xxxxxxx" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 font-mono">
+                            <input type="tel" id="co_phone2" placeholder="071xxxxxxx" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 font-mono outline-none">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold text-slate-300 mb-1">Delivery Street Address *</label>
-                        <input type="text" id="co_address" required placeholder="House No, Street name, Landmark..." class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+                        <input type="text" id="co_address" required placeholder="House No, Street name, Landmark..." class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 outline-none">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">City / District *</label>
-                            <input type="text" id="co_city" required placeholder="Colombo / Kandy / Galle" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+                            <input type="text" id="co_city" required placeholder="Colombo / Kandy / Galle / Jaffna" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">Payment Method</label>
-                            <select id="co_payment" onchange="togglePaymentInstructions(this.value)" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-amber-300 font-bold">
-                                <option value="COD">🟢 Cash on Delivery</option>
+                            <select id="co_payment" onchange="togglePaymentInstructions(this.value)" class="w-full text-xs p-3 rounded-xl bg-slate-900 border border-slate-700 text-amber-300 font-bold outline-none">
+                                <option value="COD">🟢 Cash on Delivery (COD)</option>
                                 <option value="BANK_TRANSFER">💳 Bank Transfer</option>
                             </select>
                         </div>
@@ -273,7 +372,7 @@
                     <div id="bankNoteBox" class="hidden p-3 bg-amber-950/40 rounded-xl border border-amber-600/30 text-[11px] text-amber-200 space-y-1">
                         <strong>Bank Account Details:</strong>
                         <div>Bank: Commercial Bank of Ceylon</div>
-                        <div>Account: YDS Threads (Pvt) Ltd &bull; A/C: 1000847291</div>
+                        <div>Account: JDS Threads (Pvt) Ltd &bull; A/C: 1000847291</div>
                     </div>
 
                     <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
@@ -281,7 +380,7 @@
                         <strong class="text-amber-300 font-black text-sm" id="co_total_badge">Rs. 0.00</strong>
                     </div>
 
-                    <button type="submit" id="co_submit_btn" class="w-full py-3.5 gold-btn rounded-xl text-xs uppercase tracking-wider shadow-xl flex items-center justify-center gap-2">
+                    <button type="submit" id="co_submit_btn" class="w-full py-3.5 gold-btn rounded-xl text-xs uppercase tracking-wider shadow-xl flex items-center justify-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-lock text-xs"></i> Place Order (Cash on Delivery)
                     </button>
                 </form>
@@ -296,7 +395,7 @@
                 <i class="fa-solid fa-check"></i>
             </div>
             <h3 class="font-cinzel text-xl font-black text-white">Order Confirmed!</h3>
-            <p class="text-xs text-slate-400 mt-1">Thank you for choosing YDS THREADS.</p>
+            <p class="text-xs text-slate-400 mt-1">Thank you for shopping with <strong>JDS THREADS</strong>.</p>
 
             <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 my-4 text-xs text-left space-y-1.5">
                 <div class="flex justify-between">
@@ -314,31 +413,31 @@
             </div>
 
             <p class="text-[11px] text-slate-400 mb-5">
-                Your order will be dispatched via Koombiyo Delivery within 2-3 working days. Cash will be collected at your doorstep.
+                Your order is being packed and dispatched via Koombiyo Express within 2-3 working days. Cash will be collected at your doorstep.
             </p>
 
             <a id="succ_wa_link" href="#" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition flex items-center justify-center gap-2 mb-2">
                 <i class="fa-brands fa-whatsapp text-sm"></i> Confirm on WhatsApp
             </a>
-            <button onclick="location.reload()" class="w-full py-2.5 bg-slate-800 text-slate-300 text-xs font-bold rounded-xl hover:bg-slate-700 transition">
+            <button onclick="location.reload()" class="w-full py-2.5 bg-slate-800 text-slate-300 text-xs font-bold rounded-xl hover:bg-slate-700 transition cursor-pointer">
                 Continue Shopping
             </button>
         </div>
     </div>
 
-    <!-- Mobile Bottom App Navigation Bar (Synchronized with Cart & iOS Safe Area) -->
+    <!-- Mobile Bottom App Navigation Bar -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0b0f19]/95 backdrop-blur-xl border-t border-slate-800/80 py-2 px-4 flex justify-between items-center text-[10px] text-slate-400 font-bold shadow-2xl" style="padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));">
         <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center gap-1 hover:text-amber-300">
             <i class="fa-solid fa-house text-sm"></i>
             <span>Home</span>
         </button>
-        <button onclick="filterCategory('Fashion')" class="flex flex-col items-center gap-1 hover:text-amber-300">
-            <i class="fa-solid fa-shirt text-sm"></i>
-            <span>Fashion</span>
+        <button onclick="document.getElementById('categoriesShowcaseGrid').scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center gap-1 hover:text-amber-300">
+            <i class="fa-solid fa-layer-group text-sm"></i>
+            <span>Categories</span>
         </button>
-        <button onclick="filterCategory('Shoes')" class="flex flex-col items-center gap-1 hover:text-amber-300">
-            <i class="fa-solid fa-shoe-prints text-sm"></i>
-            <span>Shoes</span>
+        <button onclick="filterSection('flash')" class="flex flex-col items-center gap-1 text-red-400 hover:text-red-300">
+            <i class="fa-solid fa-bolt text-sm"></i>
+            <span>Flash Deals</span>
         </button>
         <button onclick="toggleCartDrawer()" class="flex flex-col items-center gap-1 hover:text-amber-300 relative">
             <i class="fa-solid fa-bag-shopping text-sm text-amber-400"></i>
@@ -352,24 +451,416 @@
     </nav>
 
     <!-- Footer -->
-    <footer class="bg-black border-t border-slate-800 text-slate-400 py-8 sm:py-10 px-4 text-center text-xs">
+    <footer class="bg-black border-t border-slate-800 text-slate-400 py-10 px-4 text-center text-xs">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <img src="assets/logo.png" class="h-10 sm:h-12 w-auto mb-3 opacity-90">
-            <p class="text-slate-500 max-w-md">YDS THREADS — Premium Fashion, Handcrafted Footwear &amp; Luxury Fragrances. Islandwide Sri Lanka Delivery.</p>
+            <h4 class="font-cinzel text-white text-base font-bold">JDS THREADS &bull; MULTI-STORE</h4>
+            <p class="text-slate-500 max-w-md mt-1">21 Categories • Best Deals • Islandwide Cash on Delivery (COD) across Sri Lanka via Koombiyo Express.</p>
             <div class="mt-4 pt-4 border-t border-slate-900 text-[11px] text-slate-600">
-                &copy; 2026 YDS THREADS. Built for Client E-Commerce Excellence.
+                &copy; 2026 JDS THREADS (jdsthreads). All Rights Reserved.
             </div>
         </div>
     </footer>
 
-    <!-- Products Data and Interactive Logic -->
+    <!-- Complete Store Data & JavaScript Engine -->
     <script>
+        // 1. THE 21 MAIN CATEGORIES WITH USER-PROVIDED OPENAI IMAGES
+        const CATEGORIES = [
+            {
+                id: 'breakfast_bakery',
+                name: 'Breakfast & Bakery',
+                icon: 'fa-bread-slice',
+                image_url: 'https://images.openai.com/static-rsc-4/Bm6JrszfLLeXTcSLWv-gP_JKzk5zRfMLh2fCK4qCTyYJ8WphxQChYoeJ0RJRfiCo5MZ__UqEXxqkFYRP10VCoi4xMYpPfT11ntGAEgYyJ28C2sGtlGoRZq_wTMDB-N1co1svieFJhRg5lwrWO-i7P6oXmhxDa3kf2Az8PtHcCqk?purpose=inline'
+            },
+            {
+                id: 'coffee_tea_malts',
+                name: 'Coffee, Tea & Malts',
+                icon: 'fa-mug-hot',
+                image_url: 'https://images.openai.com/static-rsc-4/_w-7tuPH5beJ0ZSXay3cOvrmNfR0SoH1l6Hxyj4a_MobeXvluDseOMIduXxXLnuYRAUWmPr3kwrtr-bajVTEAjDXa6QWRcYO2ZeuA_gJ26a_ORwzhkmQs3ONcMNPVVkUbxyr9-FcTltYrBAMQf2eDO2gMJ7eCIkd1lT-tnlWI3Q?purpose=inline'
+            },
+            {
+                id: 'daily_deals',
+                name: 'Daily Deals',
+                icon: 'fa-tags',
+                image_url: 'https://images.openai.com/static-rsc-4/Wd-0kx1SqL9Nkv73FCEntqp4gFl_J_yz7v50H8Ywo8TZQ9gglbgPEY4cG3K2bsFBr1hRZL4ZaUY14qVoFO6fpYhYzHMGP6ZPUfHCHfeNCGDwyvNIJ_gL7q_rOOb8PvL7lseT__wpukSkLHRi_lixlOjJdL9-jemCmyjnT150Pfs?purpose=inline'
+            },
+            {
+                id: 'dairy_products',
+                name: 'Dairy Products',
+                icon: 'fa-cheese',
+                image_url: 'https://images.openai.com/static-rsc-4/YbmDUpYgXkj_VcSAdQFSGhn3twmuZfqS-L-IOiY8_BQF0bh_Y_PZlQlRu-J8TNtO6DPQxhL_5wcOqVaFV3va6T9ZoLfpkAHlTDWa3KVJHwWx6ykdaXgOzUKVpVrsHfQQFa3p4JeQwjkNvBTXZy-CmTJcwIZ_nPSHTJLHh-j0UOY?purpose=inline'
+            },
+            {
+                id: 'electronics_appliances',
+                name: 'Electronics & Appliances',
+                icon: 'fa-tv',
+                image_url: 'https://images.openai.com/static-rsc-4/njtow4sudtvt2DhPyDpXiigzhMCn0-LdOSiq60udckOiMBlcF3wxUAA_Cktk4k-ayX_4JHSLzlbjcHrA4EtuHLkjaq7T3kfgbPoghcfZoputB1FBUayENr6cKXKPmXy3ZqptwLfY-ImtpO_iYUo9XNot7Lc_hlI-eqNAKFTc_m4?purpose=inline'
+            },
+            {
+                id: 'fresh_produce',
+                name: 'Fresh Produce',
+                icon: 'fa-apple-whole',
+                image_url: 'https://images.openai.com/static-rsc-4/cHGaoTKnmhCPHi0J4NeMxuTd23HM1eRhmkmRr62kluj58JdtMjPeq2LIO0Xsxx8dg1QPlbZg5r8MwQPdVWhgo2MBbogGU_oh-Yyi1tVIps5bYLybHYdtMfYlqOeAddS8KkPukbxdG-z7CI2saMEnT2s0C-hmA4uDKeJQqcsN_fQ?purpose=inline'
+            },
+            {
+                id: 'frozen_foods',
+                name: 'Frozen Foods',
+                icon: 'fa-snowflake',
+                image_url: 'https://images.openai.com/static-rsc-4/PU-EUsriZ8GMuF9YF1LphcZc2kbDGNEYsJmdqXAislHDwKpHZkbKX3QEQ_DN4nb8tBDwxZ2BXS3oTic7ryfvpSTjsa96ytXT8uv0m1zs_X3hlcYrKJDgZGYZx-CR-hSTYxEgcpnUxYhcaHRpVaUA2WsxF7rvNO_GhFVA8zB5vY?purpose=inline'
+            },
+            {
+                id: 'gifting',
+                name: 'Gifting',
+                icon: 'fa-gift',
+                image_url: 'https://images.openai.com/static-rsc-4/LqVkYU1-RwpULIYqDImpBBllEH1DYhKlSvFJeFBFuQ4zvmfgCqzHRd3seD4B2eo-hGellM28Kdlkd9HG2gC0dkfcewy_ArEG-56cHi7Q9VtbxiTnIWcFnnaEyJg9sSbPQQhMV11RtGAnYX7dG-pW4JO8d-KqGki_Q6jzJROYdiY?purpose=inline'
+            },
+            {
+                id: 'grocery_staples',
+                name: 'Grocery & Staples',
+                icon: 'fa-basket-shopping',
+                image_url: 'https://images.openai.com/static-rsc-4/6VSJgXXrnLXauC3LUDOqBTlg81WfjNGJQBD-Aa9jqZxF9Co7cnJFRBCzCWqdDLSHSoBGonNWREQFzBavOLm1w1NbVSWFY6TyFPdfglj9ic5nVSl-_l6hG86C0322SAbPRuH-_uCyv2LoUV9lVFNorMQOJr0mB0oZXNl-FKmkkrU?purpose=inline'
+            },
+            {
+                id: 'health_beauty',
+                name: 'Health & Beauty',
+                icon: 'fa-spa',
+                image_url: 'https://images.openai.com/static-rsc-4/_IFF2nhgz2AIuNXjgNNxcJy3e9NNev5uE7tLBKuGPGEvwiAEjMocZPZLxz7zVJfkFZg7PFzi6Mm8N9gxTDBWXjs-trZWa9hwRNQYtCL-Mes4zZq1zhlkkE-0vwo4V5u5BqzqmN_MECtAKtWHVVxSNr5VyDIP-FjSvwgZGj-IGoE?purpose=inline'
+            },
+            {
+                id: 'household',
+                name: 'Household',
+                icon: 'fa-house-chimney',
+                image_url: 'https://images.openai.com/static-rsc-4/fWvdB3b7fTnYezSSEruY7yj9e5WsqgPbRjXX_hzBie9_xYwObUdKt00-fEIIeSojuzKb62_UyPwJJDg5m06SdwopK0YVolU2QRTGt_3DWVEFPlkDA2aIB3Nbtmcih2o-RABSWiunRx2VgpMu34jROQISNtqT7fwfvokBdQvcFsk?purpose=inline'
+            },
+            {
+                id: 'milk_powder',
+                name: 'Milk Powder',
+                icon: 'fa-blender',
+                image_url: 'https://images.openai.com/static-rsc-4/NZ9nRw1034Az4aaif1eKLvTpUuC5pnOUhxGZIDhnC9qcqGumQmtq7ZcvmDcLkrdzSZU4H2S-kD0ACeMkD6ieBc1vF7GxwEgwZfyI6BAaKbeLdwhch49qqFjuvyU_EFKJUCdRNaVF15DkO_EMRGwo-i5WCVTHP1XgHDUPLyHvT9c?purpose=inline'
+            },
+            {
+                id: 'mobile_accessories',
+                name: 'Mobile Accessories',
+                icon: 'fa-mobile-screen',
+                image_url: 'https://images.openai.com/static-rsc-4/egvU2NOYQ6i2y3efU8hJmokLHz_mWFCFCWAb73C1SMtQ-r070ACdjP64zrOJ6uOX6O8cgKmhrOShr2B08uBSLaIhZTqYmHE6FuTQOo8kKJoYj6RHjN0U-tdJkuJIcdnntTR1dj2u9SXg2x-_O_4tGpfC2Ydkz3MCVk1yj7asMZ4?purpose=inline'
+            },
+            {
+                id: 'mom_baby_care',
+                name: 'Mom & Baby Care',
+                icon: 'fa-baby',
+                image_url: 'https://images.openai.com/static-rsc-4/wP86Qk5Q4n75Jl8hhrQar4IibyiRihLZlff4WSmzule7UCZzhDv2239YxOQPq90GEn-h8IluZgN6hbWCu5FOk5hZ3Ofo53zN4hZ5pRJW5qlHStWzPyWIQqlYFSjl-msSNkq3aAKU-xAIxJtcAVnO_QEEINf9BVAFTCpJymAzyD8?purpose=inline'
+            },
+            {
+                id: 'party_items',
+                name: 'Party Items & Decorations',
+                icon: 'fa-cake-candles',
+                image_url: 'https://images.openai.com/static-rsc-4/006v6bgPqDUnLcR3ae1xXtN7WJQvrmfI1p1VQZJSE1J_Pbz4XPLy_0ejxAxTzLpsaa0addO2Z2v9D5_VwkDjNu13sUIXKpK5BtW06CNmHGh8Lz9FfjkYo1BKHpm1d1dhsne67_ojEesKQOKyov_gzWqg0l_q5QtAs1BWxXltAco?purpose=inline'
+            },
+            {
+                id: 'pet_care',
+                name: 'Pet Care',
+                icon: 'fa-paw',
+                image_url: 'https://images.openai.com/static-rsc-4/ZM_qR20U7foNAdbNWWpULRpWNuiMCF-AXdOO9tlEHu9eEcPbZgHqCio8_9-8U4qUhFVnKRe_h492sgILN_Uld3Y7vb-tViZfqzNh94HdqX0qJethVXBOljP4WcEV8mOEWopEyqZT0ae1c3a5RETemA8pJp-AiaNF5qSLGZEVYbs?purpose=inline'
+            },
+            {
+                id: 'romantic_surprises',
+                name: 'Romantic Surprises',
+                icon: 'fa-heart',
+                image_url: 'https://images.openai.com/static-rsc-4/_K-ncu9sLswTZkdqOFz2rmwoULww0k65w9Nph5VtPRFsrbEKgKc4J7b6vH52Zz-CBI-xdHt2qLasqjTrdMAwoEN_WtpXqEtBuZGoZlFx5k5HqqVnYiByKG09CXpqzejdoJpO5tqFajv4mVQsEZdVcVXXl82mrbCAmCutK2RQ_9s?purpose=inline'
+            },
+            {
+                id: 'stationery',
+                name: 'Stationery',
+                icon: 'fa-pen-nib',
+                image_url: 'https://images.openai.com/static-rsc-4/EMTZ8OLUP8Rk9KWXEZagNzzTFo-dLqF9vWt8A46J5dLP23ZojDJAicwAm2Jyhw0j6xgZN3pSnrTEDOrNOyTWFE9KsGzFtchGla0HWW6znWO5IcV5SBcTENINUS57odau_9co9SXa2oE8Q1Ed4Wt6OJzJW8dFuDlyicEL1i6-KjA?purpose=inline'
+            },
+            {
+                id: 'toys_games',
+                name: 'Toys & Games',
+                icon: 'fa-gamepad',
+                image_url: 'https://images.openai.com/static-rsc-4/ZtEmTl6rAwnUHmzTeC7mQaF7dVIWJnYRCygv_dzr0xmBEtkPsX1yg-TXaxCzFqBUGOwbOHqYyEQL8c_q5827f4wn9CinkKiuychKyvgve5g2WGktRi39YvzhRboagoQvETCuOEQvZEIhfMkUnCqqpXVNFLjTINeFH5FzsbneRk8?purpose=inline'
+            },
+            {
+                id: 'snacks_confectionery',
+                name: 'Snacks & Confectionery',
+                icon: 'fa-cookie-bite',
+                image_url: 'https://images.openai.com/static-rsc-4/UmranVLzW7rUSsdYcMuyrlSwW15Mh_OHouTo8zZRtvLI4FFk1Pn4pjrp5WadelqEaiygrMH7kenMHV4AnEJZAs5VD26g8Dfp-moPFvcg10RpyUwiqB8H-2O5lOmPlefd_nEg0MDCJ8EcFaNLhjosfXJVfTgTdIEBUDjLxAPdF8Y?purpose=inline'
+            },
+            {
+                id: 'wow_offers',
+                name: 'Wow Offers',
+                icon: 'fa-fire',
+                image_url: 'https://images.openai.com/static-rsc-4/vhDLbXie06XQJCICaheQWpOO6XIci4JqviOeKAYOR9JUVsrSi4UAV_giviO9QbAdZFBT7rMrLq97OKKaCs-bs348Yr0DW70Ie18-oSx6SexuB50KMXAZ7vyH5v-QId7lM2tCqlkiz-gR_LIfEiufWntMVYRZaja70VEc8W4ZDGI?purpose=inline'
+            }
+        ];
+
+        // 2. EXPANDED MULTI-CATEGORY PRODUCTS CATALOG
         const PRODUCTS = [
+            // FLASH SALE / WOW OFFERS / ELECTRONICS
+            {
+                id: 101,
+                name: 'Pro Wireless ANC Earbuds with Hi-Fi Bass & Digital Display Case',
+                category: 'Electronics & Appliances',
+                subcategory: 'Audio',
+                section: 'flash',
+                is_flash: true,
+                flash_claimed: 87,
+                price: 3450,
+                original_price: 6900,
+                sizes: ['Universal Fit'],
+                colors: ['Midnight Black', 'Pearl White', 'Matte Grey'],
+                image_url: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600',
+                badge: 'Flash 50% Off',
+                rating: 4.9,
+                reviews_count: 214
+            },
+            {
+                id: 102,
+                name: '20,000mAh 65W Fast Charging PD Power Bank for Phones & Laptops',
+                category: 'Mobile Accessories',
+                subcategory: 'Power Banks',
+                section: 'flash',
+                is_flash: true,
+                flash_claimed: 92,
+                price: 4950,
+                original_price: 8500,
+                sizes: ['20,000 mAh'],
+                colors: ['Stealth Black', 'Deep Navy'],
+                image_url: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600',
+                badge: 'Flash Deal',
+                rating: 5.0,
+                reviews_count: 178
+            },
+            {
+                id: 103,
+                name: 'Anchor Pure Full Cream Milk Powder Instant Pack (1kg)',
+                category: 'Milk Powder',
+                subcategory: 'Milk Powder',
+                section: 'bestsellers',
+                is_flash: true,
+                flash_claimed: 76,
+                price: 2480,
+                original_price: 3100,
+                sizes: ['1kg Foil Pack', '400g Box'],
+                colors: ['Standard Pack'],
+                image_url: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600',
+                badge: 'Bestseller',
+                rating: 4.9,
+                reviews_count: 320
+            },
+            {
+                id: 104,
+                name: 'Belgian Artisan Dark & Milk Chocolate Truffles Gift Box (24 Pcs)',
+                category: 'Snacks & Confectionery',
+                subcategory: 'Chocolates',
+                section: 'flash',
+                is_flash: true,
+                flash_claimed: 81,
+                price: 2900,
+                original_price: 4500,
+                sizes: ['24 Pcs Luxury Box', '12 Pcs Box'],
+                colors: ['Assorted Box'],
+                image_url: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=600',
+                badge: 'Hot Deal',
+                rating: 5.0,
+                reviews_count: 165
+            },
+
+            // BREAKFAST & COFFEE / TEA
+            {
+                id: 105,
+                name: 'Freshly Baked French Butter Croissants & Sourdough Breakfast Box',
+                category: 'Breakfast & Bakery',
+                subcategory: 'Fresh Bakery',
+                section: 'new',
+                price: 1850,
+                original_price: 2400,
+                sizes: ['6-Piece Box', '12-Piece Party Pack'],
+                colors: ['Fresh Oven Baked'],
+                image_url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600',
+                badge: 'Fresh Daily',
+                rating: 4.8,
+                reviews_count: 89
+            },
+            {
+                id: 106,
+                name: 'Ceylon Premium Single Estate Pekoe Black Tea & Pure Roasted Coffee (500g)',
+                category: 'Coffee, Tea & Malts',
+                subcategory: 'Ceylon Tea',
+                section: 'featured',
+                price: 2150,
+                original_price: 2800,
+                sizes: ['500g Tin', '1kg Bag'],
+                colors: ['Vintage Gold Tin'],
+                image_url: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600',
+                badge: 'Authentic Ceylon',
+                rating: 5.0,
+                reviews_count: 142
+            },
+
+            // FRESH PRODUCE & GROCERY
+            {
+                id: 107,
+                name: 'Organic Farm Crisp Green Apples & Sweet Valencia Oranges Basket (2.5kg)',
+                category: 'Fresh Produce',
+                subcategory: 'Fruits',
+                section: 'popular',
+                price: 2750,
+                original_price: 3500,
+                sizes: ['2.5kg Basket', '5kg Family Crate'],
+                colors: ['Fresh Harvest'],
+                image_url: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=600',
+                badge: 'Farm Fresh',
+                rating: 4.9,
+                reviews_count: 98
+            },
+            {
+                id: 108,
+                name: 'Royal Basmati Rice XXL Long Grain Premium Bag (5kg)',
+                category: 'Grocery & Staples',
+                subcategory: 'Rice & Grains',
+                section: 'bestsellers',
+                price: 3600,
+                original_price: 4400,
+                sizes: ['5kg Bag', '10kg Sack'],
+                colors: ['Gold Sealed Pack'],
+                image_url: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600',
+                badge: 'Top Rated',
+                rating: 4.9,
+                reviews_count: 245
+            },
+            {
+                id: 109,
+                name: 'Crispy Tempura Chicken Nuggets & French Fries Frozen Party Pack (1kg)',
+                category: 'Frozen Foods',
+                subcategory: 'Party Snacks',
+                section: 'trending',
+                price: 2200,
+                original_price: 2900,
+                sizes: ['1kg Sealed Pack'],
+                colors: ['Crispy Classic'],
+                image_url: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600',
+                badge: 'Quick Meal',
+                rating: 4.8,
+                reviews_count: 73
+            },
+
+            // BABY CARE & HOUSEHOLD & PET
+            {
+                id: 110,
+                name: 'Ultra-Absorbent Breathable Baby Diapers Pants (Jumbo 64 Pcs)',
+                category: 'Mom & Baby Care',
+                subcategory: 'Diapers',
+                section: 'bestsellers',
+                price: 3850,
+                original_price: 4900,
+                sizes: ['Size S (3-7kg)', 'Size M (6-11kg)', 'Size L (9-14kg)', 'Size XL (12-17kg)'],
+                colors: ['Soft Cotton Touch'],
+                image_url: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
+                badge: 'Mom Choice',
+                rating: 5.0,
+                reviews_count: 198
+            },
+            {
+                id: 111,
+                name: 'Smart Robotic Dog & Educational Interactive RC Stunt Car with Lights',
+                category: 'Toys & Games',
+                subcategory: 'RC Toys',
+                section: 'trending',
+                price: 4800,
+                original_price: 6500,
+                sizes: ['Complete Set + USB Charger'],
+                colors: ['Cyber Blue', 'Neon Red', 'Stealth Black'],
+                image_url: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600',
+                badge: 'Kid Favorite',
+                rating: 4.9,
+                reviews_count: 115
+            },
+            {
+                id: 112,
+                name: 'Premium Salmon & Tuna Crunchy Cat & Dog Treat Jar (500g)',
+                category: 'Pet Care',
+                subcategory: 'Pet Food',
+                section: 'popular',
+                price: 1950,
+                original_price: 2600,
+                sizes: ['500g Airtight Jar', '1kg Pack'],
+                colors: ['Salmon Bites', 'Tuna & Chicken'],
+                image_url: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600',
+                badge: 'Vet Approved',
+                rating: 4.9,
+                reviews_count: 88
+            },
+
+            // GIFTING & ROMANTIC & PARTY
+            {
+                id: 113,
+                name: 'Eternal Preserved Royal Red Roses in Velvet Glass Dome with LED Lights',
+                category: 'Romantic Surprises',
+                subcategory: 'Everlasting Roses',
+                section: 'featured',
+                price: 5200,
+                original_price: 7500,
+                sizes: ['Luxury Gift Box Dome'],
+                colors: ['Royal Crimson', 'Midnight Blue', 'Blush Pink'],
+                image_url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600',
+                badge: 'Romantic Top Pick',
+                rating: 5.0,
+                reviews_count: 184
+            },
+            {
+                id: 114,
+                name: 'Mega Birthday & Celebration Party Balloon Arch Kit (120 Pcs + Pump)',
+                category: 'Party Items & Decorations',
+                subcategory: 'Decorations',
+                section: 'new',
+                price: 2400,
+                original_price: 3600,
+                sizes: ['120 Pcs Kit + Hand Pump'],
+                colors: ['Rose Gold & White', 'Black & Gold Luxury', 'Pastel Rainbow'],
+                image_url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600',
+                badge: 'Party Ready',
+                rating: 4.8,
+                reviews_count: 67
+            },
+            {
+                id: 115,
+                name: '48-Color Dual Tip Artist Sketch Marker Set with Carrying Case',
+                category: 'Stationery',
+                subcategory: 'Art Supplies',
+                section: 'popular',
+                price: 2850,
+                original_price: 3900,
+                sizes: ['48 Colors Case', '80 Colors Deluxe'],
+                colors: ['Deluxe Black Zipper Bag'],
+                image_url: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=600',
+                badge: 'Artist Favorite',
+                rating: 4.9,
+                reviews_count: 130
+            },
+            {
+                id: 116,
+                name: 'Mega Daily Essentials Grocery Hamper (Rice, Dhal, Sugar, Tea, Oil & Spices)',
+                category: 'Daily Deals',
+                subcategory: 'Combo Box',
+                section: 'wow',
+                price: 7900,
+                original_price: 10500,
+                sizes: ['Family Mega Box (12 Items)'],
+                colors: ['Delivered in Sealed Box'],
+                image_url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=600',
+                badge: 'Mega Saver',
+                rating: 5.0,
+                reviews_count: 275
+            },
+
+            // SIGNATURE LUXURY FASHION, SHOES & FRAGRANCES
             {
                 id: 1,
-                name: 'Royal Dubai Hand-Embroidered Velvet Abaya',
-                category: 'Fashion',
+                name: 'Royal Dubai Hand-Embroidered Velvet Abaya with Sheila Scarf',
+                category: 'Romantic Surprises',
                 subcategory: 'Abaya',
+                section: 'bestsellers',
                 price: 8500,
                 original_price: 11500,
                 sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -381,9 +872,10 @@
             },
             {
                 id: 2,
-                name: 'Pure Georgette Designer Chudithar / Salwar Suit',
-                category: 'Fashion',
+                name: 'Pure Georgette Designer Chudithar / Salwar Suit Collection',
+                category: 'Gifting',
                 subcategory: 'Chudithar',
+                section: 'trending',
                 price: 6900,
                 original_price: 8500,
                 sizes: ['S', 'M', 'L', 'XL'],
@@ -394,38 +886,11 @@
                 reviews_count: 54
             },
             {
-                id: 3,
-                name: 'Italian Breathable Linen Casual & Office Shirt',
-                category: 'Fashion',
-                subcategory: 'Shirts',
-                price: 3800,
-                original_price: 4900,
-                sizes: ['M', 'L', 'XL', 'XXL'],
-                colors: ['Crisp White', 'Pastel Sky', 'Jet Black', 'Olive Green'],
-                image_url: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600',
-                badge: 'Hot Deal',
-                rating: 4.8,
-                reviews_count: 67
-            },
-            {
-                id: 4,
-                name: 'Elegance Floral Tiered Summer Maxi Dress',
-                category: 'Fashion',
-                subcategory: 'Dresses',
-                price: 4500,
-                original_price: 5900,
-                sizes: ['S', 'M', 'L', 'XL'],
-                colors: ['Sage Floral', 'Midnight Rose', 'Sunshine Coral'],
-                image_url: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600',
-                badge: 'Popular',
-                rating: 4.9,
-                reviews_count: 38
-            },
-            {
                 id: 5,
-                name: 'Handcrafted Oxford Italian Formal Leather Shoes',
-                category: 'Shoes',
-                subcategory: 'Formal',
+                name: 'Handcrafted Oxford Italian Formal Genuine Leather Shoes',
+                category: 'Gifting',
+                subcategory: 'Formal Shoes',
+                section: 'featured',
                 price: 7900,
                 original_price: 10500,
                 sizes: ['40', '41', '42', '43', '44', '45'],
@@ -436,69 +901,29 @@
                 reviews_count: 112
             },
             {
-                id: 6,
-                name: 'YDS Urban Streetwear Chunky High-Top Sneakers',
-                category: 'Shoes',
-                subcategory: 'Sneakers',
-                price: 6200,
-                original_price: 7800,
-                sizes: ['40', '41', '42', '43', '44', '45'],
-                colors: ['Triple White', 'Shadow Black/Gold', 'Ice Grey'],
-                image_url: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600',
-                badge: 'Streetwear Top',
-                rating: 4.9,
-                reviews_count: 94
-            },
-            {
-                id: 7,
-                name: 'Hand-Stitched Premium Leather Driving Loafers',
-                category: 'Shoes',
-                subcategory: 'Loafers',
-                price: 5400,
-                original_price: 6800,
-                sizes: ['40', '41', '42', '43', '44'],
-                colors: ['Coffee Brown', 'Navy Suede', 'Jet Black'],
-                image_url: 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=600',
-                badge: 'Comfort Pick',
-                rating: 4.8,
-                reviews_count: 49
-            },
-            {
                 id: 8,
-                name: 'Imperial Royal Amber & Cambodian Oud (100ml EDP)',
-                category: 'Perfumes',
-                subcategory: 'Oud',
+                name: 'Imperial Royal Amber & Cambodian Oud (100ml Eau De Parfum)',
+                category: 'Health & Beauty',
+                subcategory: 'Royal Oud',
+                section: 'bestsellers',
                 price: 6800,
                 original_price: 8500,
-                sizes: ['100ml EDP'],
-                colors: ['Gold Bottle'],
+                sizes: ['100ml EDP Bottle'],
+                colors: ['Gold Flacon'],
                 image_url: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600',
                 badge: '24H Lasting',
                 rating: 5.0,
                 reviews_count: 143
             },
             {
-                id: 9,
-                name: 'French Velvet Vanilla & Rose Perfume Twin Gift Set',
-                category: 'Perfumes',
-                subcategory: 'Combo',
-                price: 8200,
-                original_price: 10900,
-                sizes: ['2x 80ml Set'],
-                colors: ['Velvet Box'],
-                image_url: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600',
-                badge: 'Combo Deal',
-                rating: 4.9,
-                reviews_count: 76
-            },
-            {
                 id: 10,
-                name: '24K Gold Luxury Skin Rejuvenation Bridal Glow Kit',
-                category: 'Perfumes',
-                subcategory: 'Cosmetics',
+                name: '24K Gold Luxury Skin Rejuvenation Bridal Glow Facial Care Kit',
+                category: 'Health & Beauty',
+                subcategory: 'Skincare',
+                section: 'popular',
                 price: 9500,
                 original_price: 12900,
-                sizes: ['4-Piece Set'],
+                sizes: ['4-Piece Complete Set'],
                 colors: ['Gold Glow Pack'],
                 image_url: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600',
                 badge: 'Bridal Glow',
@@ -507,11 +932,122 @@
             }
         ];
 
-        let currentCategory = 'all';
+        // STATE MANAGEMENT
+        let currentFilter = 'all'; // 'all', or category name, or section type
+        let currentSearchQuery = '';
         let currentFastProduct = null;
         let viewMode = 'grid'; // 'grid' (2-col mobile) or 'list' (1-col card)
-        let cart = JSON.parse(localStorage.getItem('yds_cart') || '[]');
+        let cart = JSON.parse(localStorage.getItem('jds_cart') || localStorage.getItem('yds_cart') || '[]');
 
+        // INITIALIZE CATEGORY SHOWCASE GRID (ALL 21 CATEGORIES)
+        function renderCategoryShowcase() {
+            const container = document.getElementById('categoriesShowcaseGrid');
+            const chips = document.getElementById('categoryChipsContainer');
+            if (!container) return;
+
+            let gridHtml = '';
+            let chipsHtml = '';
+
+            CATEGORIES.forEach(cat => {
+                gridHtml += `
+                    <button onclick="filterCategory('${cat.name}')" class="group flex flex-col items-center p-2 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-400/60 transition-all duration-300 shadow-md text-center cursor-pointer">
+                        <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-2 relative p-0.5 border-2 border-amber-500/30 group-hover:border-amber-400 group-hover:scale-105 transition-transform bg-slate-950">
+                            <img src="${cat.image_url}" alt="${cat.name}" loading="lazy" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-bold text-slate-200 group-hover:text-amber-300 leading-tight line-clamp-2">
+                            ${cat.name}
+                        </span>
+                    </button>
+                `;
+
+                chipsHtml += `
+                    <button onclick="filterCategory('${cat.name}')" class="px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-400 text-[10px] sm:text-[11px] font-semibold text-slate-300 hover:text-amber-300 whitespace-nowrap transition cursor-pointer">
+                        ${cat.name}
+                    </button>
+                `;
+            });
+
+            container.innerHTML = gridHtml;
+            if (chips) chips.innerHTML = chipsHtml;
+        }
+
+        // FLASH SALE SHOWCASE RENDER
+        function renderFlashSaleShowcase() {
+            const container = document.getElementById('flashSaleProductsGrid');
+            if (!container) return;
+
+            const flashItems = PRODUCTS.filter(p => p.is_flash);
+            let html = '';
+
+            flashItems.forEach(p => {
+                const discount = p.original_price ? Math.round(((p.original_price - p.price) / p.original_price) * 100) : 40;
+                const claimed = p.flash_claimed || 85;
+
+                html += `
+                    <div class="bg-slate-950/90 rounded-2xl border border-red-500/30 p-2.5 sm:p-3 flex flex-col justify-between shadow-lg relative group">
+                        <div>
+                            <div class="aspect-square w-full bg-slate-900 rounded-xl overflow-hidden relative mb-2">
+                                <img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                <span class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded text-[9px] font-black uppercase bg-red-600 text-white shadow">
+                                    -${discount}% OFF
+                                </span>
+                            </div>
+                            <div class="text-[9px] font-bold text-red-400 uppercase tracking-wider">${p.category}</div>
+                            <h4 class="font-bold text-white text-xs line-clamp-2 min-h-[32px]">${p.name}</h4>
+                            <div class="flex items-baseline gap-1.5 mt-1.5 mb-2">
+                                <span class="text-sm font-black text-amber-300">Rs. ${p.price.toLocaleString()}</span>
+                                <span class="text-[10px] text-slate-500 line-through">Rs. ${p.original_price.toLocaleString()}</span>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="mb-2">
+                                <div class="flex justify-between text-[9px] text-slate-400 font-semibold mb-0.5">
+                                    <span>🔥 Sold: ${claimed}%</span>
+                                    <span class="text-red-400">Limited Stock</span>
+                                </div>
+                                <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-amber-500 to-red-500 h-full rounded-full" style="width: ${claimed}%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-slate-800/80">
+                            <button onclick="addToCart(this, ${p.id})" class="py-1.5 px-1 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-cart-plus text-[10px]"></i> Bag
+                            </button>
+                            <button onclick="openFastCheckout(this, ${p.id})" class="py-1.5 px-1 bg-red-600 hover:bg-red-500 text-white rounded-lg text-[10px] font-black uppercase tracking-wider transition flex items-center justify-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-bolt text-[10px]"></i> Buy
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // COUNTDOWN TIMER TICKER
+        function startFlashCountdown() {
+            let totalSeconds = (11 * 3600) + (48 * 60) + 30;
+            setInterval(() => {
+                if (totalSeconds <= 0) totalSeconds = 12 * 3600;
+                totalSeconds--;
+
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+
+                const hEl = document.getElementById('timerHours');
+                const mEl = document.getElementById('timerMins');
+                const sEl = document.getElementById('timerSecs');
+
+                if (hEl) hEl.innerText = hours.toString().padStart(2, '0');
+                if (mEl) mEl.innerText = minutes.toString().padStart(2, '0');
+                if (sEl) sEl.innerText = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // CART BADGE UPDATER
         function updateCartBadge() {
             const count = cart.reduce((acc, item) => acc + item.qty, 0);
             const badge1 = document.getElementById('cartCountBadge');
@@ -519,8 +1055,64 @@
             if (badge1) badge1.innerText = count;
             if (badge2) badge2.innerText = count;
         }
-        updateCartBadge();
 
+        // GET LIVE PRODUCTS (MERGE DEFAULT WITH CUSTOM STORAGE)
+        function getLiveProducts() {
+            try {
+                const custom = JSON.parse(localStorage.getItem('jds_custom_products') || localStorage.getItem('yds_custom_products') || '[]');
+                return [...PRODUCTS, ...custom];
+            } catch(e) {
+                return PRODUCTS;
+            }
+        }
+
+        // SEARCH HANDLER
+        function handleSearch(query) {
+            currentSearchQuery = query.toLowerCase().trim();
+            const deskInput = document.getElementById('desktopSearchInput');
+            const mobInput = document.getElementById('mobileSearchInput');
+            if (deskInput && deskInput.value !== query) deskInput.value = query;
+            if (mobInput && mobInput.value !== query) mobInput.value = query;
+            renderProducts();
+        }
+
+        // SECTION FILTER
+        function filterSection(sec) {
+            currentFilter = sec;
+            document.querySelectorAll('.niche-pill').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('sec-pill-' + sec);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const badge = document.getElementById('activeFilterBadge');
+            if (sec === 'all') {
+                badge.classList.add('hidden');
+            } else {
+                badge.innerText = 'Section: ' + sec.toUpperCase();
+                badge.classList.remove('hidden');
+            }
+
+            renderProducts();
+            document.getElementById('productsGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // CATEGORY FILTER
+        function filterCategory(catName) {
+            currentFilter = catName;
+            document.querySelectorAll('.niche-pill').forEach(btn => btn.classList.remove('active'));
+            if (catName === 'all') {
+                const b = document.getElementById('sec-pill-all');
+                if (b) b.classList.add('active');
+                document.getElementById('activeFilterBadge').classList.add('hidden');
+            } else {
+                const badge = document.getElementById('activeFilterBadge');
+                badge.innerText = 'Category: ' + catName;
+                badge.classList.remove('hidden');
+            }
+            renderProducts();
+            document.getElementById('productsGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // VIEW MODE SWITCHER (GRID vs LIST)
         function setViewMode(mode) {
             viewMode = mode;
             const grid = document.getElementById('productsGrid');
@@ -539,36 +1131,59 @@
             renderProducts();
         }
 
-        function getLiveProducts() {
-            try {
-                const custom = JSON.parse(localStorage.getItem('yds_custom_products') || '[]');
-                return [...PRODUCTS, ...custom];
-            } catch(e) {
-                return PRODUCTS;
-            }
-        }
-
+        // RENDER PRODUCTS
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             let html = '';
 
             const allProds = getLiveProducts();
-            const filtered = allProds.filter(p => currentCategory === 'all' || p.category === currentCategory);
-            document.getElementById('productCountLabel').innerText = `${filtered.length} Items in Collection`;
+            let filtered = allProds;
+
+            // Apply Section or Category filter
+            if (currentFilter !== 'all') {
+                if (['flash', 'new', 'bestsellers', 'trending', 'featured', 'popular'].includes(currentFilter)) {
+                    filtered = filtered.filter(p => p.section === currentFilter || (currentFilter === 'flash' && p.is_flash));
+                } else {
+                    filtered = filtered.filter(p => p.category.toLowerCase() === currentFilter.toLowerCase());
+                }
+            }
+
+            // Apply Search filter
+            if (currentSearchQuery) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(currentSearchQuery) ||
+                    p.category.toLowerCase().includes(currentSearchQuery) ||
+                    (p.subcategory && p.subcategory.toLowerCase().includes(currentSearchQuery))
+                );
+            }
+
+            document.getElementById('productCountLabel').innerText = `${filtered.length} Items Available`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-slate-400">
+                        <i class="fa-solid fa-box-open text-4xl text-slate-600 mb-3"></i>
+                        <h4 class="text-base font-bold text-white">No products found matching your search.</h4>
+                        <p class="text-xs text-slate-500 mt-1">Try another keyword or select another category above.</p>
+                        <button onclick="currentSearchQuery=''; document.getElementById('desktopSearchInput').value=''; filterCategory('all');" class="mt-4 px-4 py-2 gold-btn text-xs font-bold rounded-xl">View All Products</button>
+                    </div>
+                `;
+                return;
+            }
 
             filtered.forEach(p => {
                 const discount = p.original_price ? Math.round(((p.original_price - p.price) / p.original_price) * 100) : 0;
                 
                 // Color buttons
-                let colorsHtml = p.colors.map((c, idx) => `
-                    <button onclick="selectColor(this, '${c}')" class="color-btn ${idx === 0 ? 'ring-2 ring-amber-400 text-amber-200' : 'text-slate-400'} px-1.5 sm:px-2 py-0.5 bg-slate-900 border border-slate-700/80 rounded text-[9px] sm:text-[10px] font-semibold transition">
+                let colorsHtml = (p.colors || ['Standard']).map((c, idx) => `
+                    <button onclick="selectColor(this, '${c}')" class="color-btn ${idx === 0 ? 'ring-2 ring-amber-400 text-amber-200' : 'text-slate-400'} px-1.5 sm:px-2 py-0.5 bg-slate-900 border border-slate-700/80 rounded text-[9px] sm:text-[10px] font-semibold transition cursor-pointer">
                         ${c}
                     </button>
                 `).join('');
 
                 // Size buttons
-                let sizesHtml = p.sizes.map((s, idx) => `
-                    <button onclick="selectSize(this, '${s}')" class="size-btn ${idx === 0 ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 text-slate-300'} px-2 sm:px-2.5 py-0.5 sm:py-1 border border-slate-700/80 rounded text-[9px] sm:text-[11px] font-bold transition">
+                let sizesHtml = (p.sizes || ['Standard']).map((s, idx) => `
+                    <button onclick="selectSize(this, '${s}')" class="size-btn ${idx === 0 ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 text-slate-300'} px-2 sm:px-2.5 py-0.5 sm:py-1 border border-slate-700/80 rounded text-[9px] sm:text-[11px] font-bold transition cursor-pointer">
                         ${s}
                     </button>
                 `).join('');
@@ -581,20 +1196,20 @@
                                 <img src="${p.image_url}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 
                                 <span class="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5 px-1.5 sm:px-2.5 py-0.5 rounded text-[8px] sm:text-[10px] font-black uppercase tracking-wider bg-black/85 text-amber-300 border border-amber-500/30 backdrop-blur-xs">
-                                    ${p.badge}
+                                    ${p.badge || 'Popular'}
                                 </span>
                                 
                                 ${discount > 0 ? `<span class="absolute top-1.5 right-1.5 sm:top-2.5 sm:right-2.5 px-1.5 sm:px-2 py-0.5 rounded text-[8px] sm:text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white shadow-md">-${discount}%</span>` : ''}
                                 
                                 <div class="absolute bottom-1.5 left-1.5 sm:bottom-2.5 sm:left-2.5 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-xs text-[9px] sm:text-[10px] text-amber-400 font-bold flex items-center gap-1">
                                     <i class="fa-solid fa-star text-[8px]"></i>
-                                    <span>${p.rating}</span>
-                                    <span class="text-slate-400 hidden xs:inline">(${p.reviews_count})</span>
+                                    <span>${p.rating || 5.0}</span>
+                                    <span class="text-slate-400 hidden xs:inline">(${p.reviews_count || 42})</span>
                                 </div>
                             </div>
 
                             <!-- Category & Title -->
-                            <div class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-400/80 mb-0.5">${p.subcategory}</div>
+                            <div class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-400/80 mb-0.5 truncate">${p.category}</div>
                             <h3 class="font-bold sm:font-extrabold text-white text-xs sm:text-sm line-clamp-2 leading-snug mb-1.5 sm:mb-2 min-h-[32px] sm:min-h-[40px]">${p.name}</h3>
 
                             <!-- Price -->
@@ -606,7 +1221,7 @@
                             <!-- Color Swatches -->
                             <div class="mb-2 sm:mb-3">
                                 <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider truncate">
-                                    Color: <span class="text-amber-300 selected-color-label font-semibold">${p.colors[0]}</span>
+                                    Variant: <span class="text-amber-300 selected-color-label font-semibold">${(p.colors && p.colors[0]) || 'Standard'}</span>
                                 </div>
                                 <div class="flex flex-wrap gap-1 sm:gap-1.5 color-swatches">${colorsHtml}</div>
                             </div>
@@ -614,25 +1229,25 @@
                             <!-- Size Swatches -->
                             <div class="mb-2.5 sm:mb-4">
                                 <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider truncate">
-                                    Size: <span class="text-amber-300 selected-size-label font-semibold">${p.sizes[0]}</span>
+                                    Option: <span class="text-amber-300 selected-size-label font-semibold">${(p.sizes && p.sizes[0]) || 'Standard'}</span>
                                 </div>
                                 <div class="flex flex-wrap gap-1 sm:gap-1.5 size-swatches">${sizesHtml}</div>
                             </div>
                         </div>
 
-                        <!-- Action Buttons (Responsive Mobile Touch) -->
+                        <!-- Action Buttons -->
                         <div class="space-y-1.5 sm:space-y-2 pt-2 border-t border-slate-800">
                             <div class="grid grid-cols-2 gap-1.5 sm:gap-2">
-                                <button onclick="orderViaWhatsApp(this, ${p.id})" class="py-2 sm:py-2.5 px-1 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] sm:text-[11px] rounded-lg sm:rounded-xl transition flex items-center justify-center gap-1 shadow-sm">
+                                <button onclick="orderViaWhatsApp(this, ${p.id})" class="py-2 sm:py-2.5 px-1 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] sm:text-[11px] rounded-lg sm:rounded-xl transition flex items-center justify-center gap-1 shadow-sm cursor-pointer">
                                     <i class="fa-brands fa-whatsapp text-xs sm:text-sm"></i>
                                     <span>WhatsApp</span>
                                 </button>
-                                <button onclick="addToCart(this, ${p.id})" class="py-2 sm:py-2.5 px-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 font-bold text-[10px] sm:text-[11px] rounded-lg sm:rounded-xl transition flex items-center justify-center gap-1">
+                                <button onclick="addToCart(this, ${p.id})" class="py-2 sm:py-2.5 px-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 font-bold text-[10px] sm:text-[11px] rounded-lg sm:rounded-xl transition flex items-center justify-center gap-1 cursor-pointer">
                                     <i class="fa-solid fa-cart-plus text-xs"></i>
                                     <span>Add Bag</span>
                                 </button>
                             </div>
-                            <button onclick="openFastCheckout(this, ${p.id})" class="w-full py-2 sm:py-2.5 gold-btn rounded-lg sm:rounded-xl text-[10px] sm:text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-md">
+                            <button onclick="openFastCheckout(this, ${p.id})" class="w-full py-2 sm:py-2.5 gold-btn rounded-lg sm:rounded-xl text-[10px] sm:text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-md cursor-pointer">
                                 <i class="fa-solid fa-bolt text-xs"></i>
                                 <span>Buy Now (COD)</span>
                             </button>
@@ -643,14 +1258,7 @@
             grid.innerHTML = html;
         }
 
-        function filterCategory(cat) {
-            currentCategory = cat;
-            document.querySelectorAll('.niche-pill').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById('pill-' + cat);
-            if (activeBtn) activeBtn.classList.add('active');
-            renderProducts();
-        }
-
+        // SWATCH SELECTION HELPERS
         function selectColor(btn, colorName) {
             const card = btn.closest('.product-card');
             card.querySelectorAll('.color-btn').forEach(b => {
@@ -673,17 +1281,20 @@
             card.querySelector('.selected-size-label').innerText = sizeName;
         }
 
+        // WHATSAPP ORDER GENERATOR
         function orderViaWhatsApp(btn, id) {
-            const p = PRODUCTS.find(x => x.id === id);
+            const allProds = getLiveProducts();
+            const p = allProds.find(x => x.id === id);
             const card = btn.closest('.product-card');
             const color = card.querySelector('.selected-color-label').innerText;
             const size = card.querySelector('.selected-size-label').innerText;
 
-            const msg = `Hello YDS Threads! 👑%0A%0AI would like to order:%0A👗 *${encodeURIComponent(p.name)}*%0A🏷️ *Size / Vol:* ${encodeURIComponent(size)}%0A🎨 *Color / Variant:* ${encodeURIComponent(color)}%0A💵 *Price:* Rs. ${p.price.toLocaleString()}%0A🚚 *Payment:* Cash on Delivery (COD)%0A%0APlease let me know delivery details!`;
+            const msg = `Hello JDS Threads! 👑%0A%0AI would like to place an order:%0A📦 *Product:* ${encodeURIComponent(p.name)}%0A🏷️ *Option/Size:* ${encodeURIComponent(size)}%0A🎨 *Variant:* ${encodeURIComponent(color)}%0A💵 *Price:* Rs. ${p.price.toLocaleString()}%0A🚚 *Payment Mode:* Cash on Delivery (COD)%0A%0APlease let me know the delivery details!`;
 
             window.open(`https://wa.me/94766968241?text=${msg}`, '_blank');
         }
 
+        // FAST 1-CLICK CHECKOUT MODAL
         function openFastCheckout(btn, id) {
             let p;
             let color = 'Standard';
@@ -694,16 +1305,21 @@
                 color = p.color;
                 size = p.size;
             } else {
-                p = PRODUCTS.find(x => x.id === id);
+                const allProds = getLiveProducts();
+                p = allProds.find(x => x.id === id);
                 const card = btn.closest('.product-card');
-                color = card.querySelector('.selected-color-label').innerText;
-                size = card.querySelector('.selected-size-label').innerText;
+                if (card) {
+                    const cEl = card.querySelector('.selected-color-label');
+                    const sEl = card.querySelector('.selected-size-label');
+                    if (cEl) color = cEl.innerText;
+                    if (sEl) size = sEl.innerText;
+                }
                 currentFastProduct = { ...p, color, size, total: p.price + 350 };
             }
 
             document.getElementById('co_item_image').src = p.image_url || p.image;
             document.getElementById('co_item_name').innerText = p.name;
-            document.getElementById('co_item_variant').innerText = `Size: ${size} | Color: ${color}`;
+            document.getElementById('co_item_variant').innerText = `Option: ${size} | Variant: ${color}`;
             document.getElementById('co_item_price').innerText = `Rs. ${p.price.toLocaleString()}`;
             document.getElementById('co_total_badge').innerText = `Rs. ${(p.price + 350).toLocaleString()}`;
 
@@ -735,55 +1351,41 @@
             const city = document.getElementById('co_city').value.trim();
             const payment = document.getElementById('co_payment').value;
 
-            const orderCode = 'YDS-' + Math.floor(1000 + Math.random() * 9000);
+            const orderCode = 'JDS-' + Math.floor(1000 + Math.random() * 9000);
             const tracking = 'KB' + Math.floor(1000000 + Math.random() * 9000000) + 'LK';
             const total = currentFastProduct.price + 350;
 
-            // Try sending to local PHP API or 24/7 Railway Cloud API
+            // Try sending to local PHP API or fallback quietly
             try {
-                const res = await fetch('api/place_order.php', {
+                await fetch('api/place_order.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name, phone1, phone2, address, city,
                         product_name: currentFastProduct.name,
-                        variant: `Size: ${currentFastProduct.size} | Color: ${currentFastProduct.color}`,
+                        variant: `Option: ${currentFastProduct.size} | Variant: ${currentFastProduct.color}`,
                         subtotal: currentFastProduct.price,
                         payment_method: payment
                     })
                 });
-                if (!res.ok) throw new Error('Static fallback');
-            } catch (err) {
-                // If running on static GitHub Pages, dispatch directly to Railway Cloud Gateway!
-                try {
-                    let cleanP = phone1.replace(/\D/g, '');
-                    if (cleanP.startsWith('0')) cleanP = '94' + cleanP.substring(1);
-                    else if (cleanP.length === 9 && cleanP.startsWith('7')) cleanP = '94' + cleanP;
-
-                    const cloudReceipt = `✨ *YDS THREADS — ORDER CONFIRMED* ✨\n\nDear ${name},\nThank you for shopping with YDS Threads! Your order has been placed successfully.\n\n📋 *Order ID:* #${orderCode}\n👗 *Item:* ${currentFastProduct.name}\n🏷️ *Details:* Size: ${currentFastProduct.size} | Color: ${currentFastProduct.color}\n💵 *Total to pay (COD):* Rs. ${total.toLocaleString()} (Includes Rs. 350 Delivery)\n🚚 *Courier:* Koombiyo Delivery (Tracking: ${tracking})\n📍 *Delivery To:* ${address}, ${city}\n\nOur team is packing your luxury package. Expected delivery within 2-3 working days. Thank you! 👑`;
-
-                    fetch('https://web-production-b6781.up.railway.app/send-message', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ phone: cleanP, message: cloudReceipt })
-                    });
-                } catch (e2) {}
-            }
+            } catch (err) {}
 
             closeCheckoutModal();
             document.getElementById('succ_order_code').innerText = '#' + orderCode;
             document.getElementById('succ_total').innerText = 'Rs. ' + total.toLocaleString();
             document.getElementById('succ_tracking').innerText = tracking;
 
-            const waMsg = `Hello YDS Threads! 👑%0A%0AOrder Confirmed:%0A📋 Order ID: %23${orderCode}%0A👤 Name: ${encodeURIComponent(name)}%0A📍 Address: ${encodeURIComponent(address)}, ${encodeURIComponent(city)}%0A👗 Item: ${encodeURIComponent(currentFastProduct.name)}%0A🏷️ ${encodeURIComponent(currentFastProduct.size)} | ${encodeURIComponent(currentFastProduct.color)}%0A💵 Total COD: Rs. ${total.toLocaleString()}%0A%0APlease dispatch via Koombiyo!`;
+            const waMsg = `Hello JDS Threads! 👑%0A%0ANew Order Placed:%0A📋 Order ID: %23${orderCode}%0A👤 Name: ${encodeURIComponent(name)}%0A📍 Address: ${encodeURIComponent(address)}, ${encodeURIComponent(city)}%0A📦 Product: ${encodeURIComponent(currentFastProduct.name)}%0A🏷️ ${encodeURIComponent(currentFastProduct.size)} | ${encodeURIComponent(currentFastProduct.color)}%0A💵 Total COD: Rs. ${total.toLocaleString()}%0A%0APlease dispatch via Koombiyo Express!`;
 
             document.getElementById('succ_wa_link').href = `https://wa.me/94766968241?text=${waMsg}`;
 
             document.getElementById('successModal').classList.remove('hidden');
             document.getElementById('successModal').classList.add('flex');
+            btn.innerHTML = '<i class="fa-solid fa-lock text-xs"></i> Place Order (Cash on Delivery)';
+            btn.disabled = false;
         }
 
-        // Cart Drawer
+        // CART DRAWER LOGIC
         function toggleCartDrawer() {
             const d = document.getElementById('cartDrawer');
             if (d.classList.contains('hidden')) {
@@ -797,16 +1399,24 @@
         }
 
         function addToCart(btn, id) {
-            const p = PRODUCTS.find(x => x.id === id);
-            const card = btn.closest('.product-card');
-            const color = card.querySelector('.selected-color-label').innerText;
-            const size = card.querySelector('.selected-size-label').innerText;
+            const allProds = getLiveProducts();
+            const p = allProds.find(x => x.id === id);
+            const card = btn.closest('.product-card') || btn.closest('.group');
+            let color = 'Standard';
+            let size = 'Standard';
+
+            if (card) {
+                const cEl = card.querySelector('.selected-color-label');
+                const sEl = card.querySelector('.selected-size-label');
+                if (cEl) color = cEl.innerText;
+                if (sEl) size = sEl.innerText;
+            }
 
             const existing = cart.find(i => i.id === id && i.color === color && i.size === size);
             if (existing) existing.qty += 1;
             else cart.push({ id, name: p.name, price: p.price, image: p.image_url, color, size, qty: 1 });
 
-            localStorage.setItem('yds_cart', JSON.stringify(cart));
+            localStorage.setItem('jds_cart', JSON.stringify(cart));
             updateCartBadge();
 
             btn.innerHTML = '✅ Added!';
@@ -816,7 +1426,7 @@
         function renderCart() {
             const list = document.getElementById('cartItemsList');
             if (cart.length === 0) {
-                list.innerHTML = `<div class="py-10 text-center text-slate-500 text-xs">Your bag is empty. Explore our signature collection!</div>`;
+                list.innerHTML = `<div class="py-12 text-center text-slate-500 text-xs"><i class="fa-solid fa-basket-shopping text-3xl mb-2 text-slate-700"></i><br>Your shopping bag is empty. Explore our 21 categories!</div>`;
                 document.getElementById('cartSubtotalText').innerText = 'Rs. 0.00';
                 document.getElementById('cartTotalText').innerText = 'Rs. 350.00';
                 return;
@@ -834,7 +1444,7 @@
                             <div class="text-[10px] text-slate-400 truncate">${i.size} &bull; ${i.color}</div>
                             <div class="text-amber-300 font-bold mt-0.5">Rs. ${i.price.toLocaleString()} x ${i.qty}</div>
                         </div>
-                        <button onclick="removeCartItem(${idx})" class="text-rose-400 hover:text-rose-300 p-2"><i class="fa-solid fa-trash-can"></i></button>
+                        <button onclick="removeCartItem(${idx})" class="text-rose-400 hover:text-rose-300 p-2 cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 `;
             });
@@ -845,7 +1455,7 @@
 
         function removeCartItem(idx) {
             cart.splice(idx, 1);
-            localStorage.setItem('yds_cart', JSON.stringify(cart));
+            localStorage.setItem('jds_cart', JSON.stringify(cart));
             updateCartBadge();
             renderCart();
         }
@@ -869,6 +1479,7 @@
             openFastCheckout(null, 'cart_bundle');
         }
 
+        // STORE MANAGER: ADD NEW ITEM MODAL
         function openClientAddModal() {
             document.getElementById('clientAddModal').classList.remove('hidden');
         }
@@ -886,13 +1497,13 @@
             const original_price = parseFloat(document.getElementById('p_original_price').value) || (price * 1.25);
             const sizesRaw = document.getElementById('p_sizes').value.trim();
             const colorsRaw = document.getElementById('p_colors').value.trim();
-            const image_url = document.getElementById('p_image').value.trim() || 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600';
+            const image_url = document.getElementById('p_image').value.trim() || 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600';
             const badge = document.getElementById('p_badge').value;
 
             if (!name || price <= 0) return alert('Please enter a valid product name and price.');
 
             const sizes = sizesRaw ? sizesRaw.split(',').map(s => s.trim()).filter(Boolean) : ['Standard'];
-            const colors = colorsRaw ? colorsRaw.split(',').map(c => c.trim()).filter(Boolean) : ['Classic'];
+            const colors = colorsRaw ? colorsRaw.split(',').map(c => c.trim()).filter(Boolean) : ['Standard'];
 
             const newProd = {
                 id: Date.now(),
@@ -906,37 +1517,43 @@
                 image_url,
                 badge,
                 rating: 5.0,
-                reviews_count: 14,
+                reviews_count: 12,
                 is_custom: true
             };
 
-            const custom = JSON.parse(localStorage.getItem('yds_custom_products') || '[]');
+            const custom = JSON.parse(localStorage.getItem('jds_custom_products') || localStorage.getItem('yds_custom_products') || '[]');
             custom.push(newProd);
-            localStorage.setItem('yds_custom_products', JSON.stringify(custom));
+            localStorage.setItem('jds_custom_products', JSON.stringify(custom));
 
             closeClientAddModal();
             renderProducts();
-            alert(`🎉 "${name}" listed successfully on your live store!`);
+            alert(`🎉 "${name}" added successfully to your live store!`);
         }
 
-        function deleteCustomProduct(id) {
-            if (!confirm('Remove this product from your store?')) return;
-            let custom = JSON.parse(localStorage.getItem('yds_custom_products') || '[]');
-            custom = custom.filter(p => p.id !== id);
-            localStorage.setItem('yds_custom_products', JSON.stringify(custom));
+        // POPULATE ADD PRODUCT CATEGORY SELECT
+        function populateAddProductCategories() {
+            const select = document.getElementById('p_category');
+            if (!select) return;
+            select.innerHTML = CATEGORIES.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+        }
+
+        // INITIALIZE APPLICATION
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategoryShowcase();
+            renderFlashSaleShowcase();
+            populateAddProductCategories();
             renderProducts();
-        }
-
-        // Initialize Render
-        renderProducts();
+            updateCartBadge();
+            startFlashCountdown();
+        });
     </script>
 
-    <!-- Modal: Client Add Product (Works 100% on GitHub Pages & Static Store) -->
+    <!-- Modal: Client Add Product (LocalStorage Based Store Manager) -->
     <div id="clientAddModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-[#111726] border gold-border rounded-3xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
                 <h3 class="text-base font-black text-white flex items-center gap-2">
-                    <i class="fa-solid fa-circle-plus text-amber-400"></i> Add New Product to Store
+                    <i class="fa-solid fa-circle-plus text-amber-400"></i> Add New Product to JDS Threads
                 </h3>
                 <button type="button" onclick="closeClientAddModal()" class="text-slate-400 hover:text-white text-lg cursor-pointer">&times;</button>
             </div>
@@ -944,39 +1561,37 @@
             <form onsubmit="saveClientProduct(event)" class="space-y-3.5 text-xs">
                 <div>
                     <label class="block font-bold text-slate-300 mb-1">Product Title *</label>
-                    <input type="text" id="p_name" required placeholder="e.g. Silk Embroidered Kaftan Abaya" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                    <input type="text" id="p_name" required placeholder="e.g. Wireless Smart Watch / Full Cream Milk" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-bold text-slate-300 mb-1">Category *</label>
                         <select id="p_category" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
-                            <option value="Fashion">👗 Fashion & Abayas</option>
-                            <option value="Shoes">👟 Shoes & Sneakers</option>
-                            <option value="Perfumes">✨ Oud & Fragrances</option>
+                            <!-- Populated via JavaScript -->
                         </select>
                     </div>
                     <div>
                         <label class="block font-bold text-slate-300 mb-1">Subcategory</label>
-                        <input type="text" id="p_subcategory" placeholder="e.g. Abaya, Kurti, Sneakers" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        <input type="text" id="p_subcategory" placeholder="e.g. Electronics, Bakery, Baby Care" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block font-bold text-slate-300 mb-1">Selling Price (Rs.) *</label>
-                        <input type="number" id="p_price" required placeholder="5500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        <input type="number" id="p_price" required placeholder="3500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-300 mb-1">Strikeout Price (Rs.)</label>
-                        <input type="number" id="p_original_price" placeholder="7200" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        <input type="number" id="p_original_price" placeholder="4800" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-bold text-slate-300 mb-1">Sizes (Comma separated)</label>
-                        <input type="text" id="p_sizes" value="S, M, L, XL" placeholder="S, M, L or 40, 41, 42" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                        <label class="block font-bold text-slate-300 mb-1">Options / Sizes (Comma separated)</label>
+                        <input type="text" id="p_sizes" value="Standard" placeholder="Standard, 1kg, 500g, XL" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-300 mb-1">Badge</label>
@@ -985,20 +1600,19 @@
                             <option value="Bestseller">🔥 Bestseller</option>
                             <option value="Trending">⚡ Trending</option>
                             <option value="Hot Deal">🏷️ Hot Deal</option>
-                            <option value="Luxury Collection">💎 Luxury Collection</option>
+                            <option value="Flash Sale">💥 Flash Sale</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block font-bold text-slate-300 mb-1">Colors (Comma separated)</label>
-                    <input type="text" id="p_colors" value="Midnight Black, Navy Blue, Maroon" placeholder="Midnight Black, Navy Blue, Maroon" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
+                    <label class="block font-bold text-slate-300 mb-1">Variants / Colors (Comma separated)</label>
+                    <input type="text" id="p_colors" value="Standard" placeholder="Midnight Black, White, Gold" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                 </div>
 
                 <div>
                     <label class="block font-bold text-slate-300 mb-1">Image URL *</label>
-                    <input type="url" id="p_image" required placeholder="https://images.unsplash.com/... or image link" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
-                    <span class="text-[10px] text-slate-500">Paste any public photo link (Unsplash, Imgur, Facebook CDN, etc.).</span>
+                    <input type="url" id="p_image" required placeholder="https://images.unsplash.com/... or public image link" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:border-amber-400 outline-none">
                 </div>
 
                 <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">

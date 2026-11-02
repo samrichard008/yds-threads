@@ -33,7 +33,7 @@ if (!$customerName || !$phone1 || !$address) {
     exit;
 }
 
-$orderCode = 'YDS-' . rand(1020, 9999);
+$orderCode = 'JDS-' . rand(1020, 9999);
 $tracking = 'KB' . rand(1000000, 9999999) . 'LK';
 
 $stmt = $pdo->prepare("
@@ -95,16 +95,16 @@ if (strpos($cleanPhone, '0') === 0) {
 
 // Trigger WhatsApp notification via Railway Cloud API (with localhost fallback)
 $waDispatched = false;
-$waMsg = "✨ *YDS THREADS — ORDER CONFIRMED* ✨\n\n"
+$waMsg = "✨ *JDS THREADS — ORDER CONFIRMED* ✨\n\n"
        . "Dear *{$customerName}*,\n"
-       . "Thank you for shopping with YDS Threads! Your order has been placed successfully.\n\n"
+       . "Thank you for shopping with JDS Threads! Your order has been placed successfully.\n\n"
        . "📋 *Order ID:* #{$orderCode}\n"
-       . "👗 *Item:* {$productName}\n"
+       . "📦 *Product:* {$productName}\n"
        . "🏷️ *Details:* {$variant}\n"
        . "💵 *Total to pay (COD):* Rs. " . number_format($total, 2) . " (Includes Rs. 350 Islandwide Delivery)\n"
        . "🚚 *Courier:* Koombiyo Delivery (Tracking: `{$tracking}`)\n"
        . "📍 *Delivery To:* {$address}, {$city}\n\n"
-       . "Our team is packing your luxury package. Expected delivery within 2-3 working days. Thank you! 👑";
+       . "Our team is packing your order. Expected delivery within 2-3 working days. Thank you! 👑";
 
 $endpoints = [
     'https://web-production-b6781.up.railway.app/send-message',
